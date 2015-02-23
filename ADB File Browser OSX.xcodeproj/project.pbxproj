@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ABA78F101A9AC210003E551F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA78F0F1A9AC210003E551F /* AppDelegate.swift */; };
+		ABA78F121A9AC210003E551F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA78F111A9AC210003E551F /* Images.xcassets */; };
+		ABA78F151A9AC210003E551F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABA78F131A9AC210003E551F /* MainMenu.xib */; };
+		ABA78F211A9AC210003E551F /* ADB_File_Browser_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA78F201A9AC210003E551F /* ADB_File_Browser_OSXTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABA78F1B1A9AC210003E551F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABA78F021A9AC210003E551F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABA78F091A9AC210003E551F;
+			remoteInfo = "ADB File Browser OSX";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ABA78F0A1A9AC210003E551F /* ADB File Browser OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ADB File Browser OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABA78F0E1A9AC210003E551F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABA78F0F1A9AC210003E551F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ABA78F111A9AC210003E551F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ABA78F141A9AC210003E551F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		ABA78F1A1A9AC210003E551F /* ADB File Browser OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ADB File Browser OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABA78F1F1A9AC210003E551F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABA78F201A9AC210003E551F /* ADB_File_Browser_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADB_File_Browser_OSXTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ABA78F071A9AC210003E551F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABA78F171A9AC210003E551F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ABA78F011A9AC210003E551F = {
+			isa = PBXGroup;
+			children = (
+				ABA78F0C1A9AC210003E551F /* ADB File Browser OSX */,
+				ABA78F1D1A9AC210003E551F /* ADB File Browser OSXTests */,
+				ABA78F0B1A9AC210003E551F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ABA78F0B1A9AC210003E551F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ABA78F0A1A9AC210003E551F /* ADB File Browser OSX.app */,
+				ABA78F1A1A9AC210003E551F /* ADB File Browser OSXTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABA78F0C1A9AC210003E551F /* ADB File Browser OSX */ = {
+			isa = PBXGroup;
+			children = (
+				ABA78F0F1A9AC210003E551F /* AppDelegate.swift */,
+				ABA78F111A9AC210003E551F /* Images.xcassets */,
+				ABA78F131A9AC210003E551F /* MainMenu.xib */,
+				ABA78F0D1A9AC210003E551F /* Supporting Files */,
+			);
+			path = "ADB File Browser OSX";
+			sourceTree = "<group>";
+		};
+		ABA78F0D1A9AC210003E551F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABA78F0E1A9AC210003E551F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ABA78F1D1A9AC210003E551F /* ADB File Browser OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABA78F201A9AC210003E551F /* ADB_File_Browser_OSXTests.swift */,
+				ABA78F1E1A9AC210003E551F /* Supporting Files */,
+			);
+			path = "ADB File Browser OSXTests";
+			sourceTree = "<group>";
+		};
+		ABA78F1E1A9AC210003E551F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABA78F1F1A9AC210003E551F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ABA78F091A9AC210003E551F /* ADB File Browser OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABA78F241A9AC210003E551F /* Build configuration list for PBXNativeTarget "ADB File Browser OSX" */;
+			buildPhases = (
+				ABA78F061A9AC210003E551F /* Sources */,
+				ABA78F071A9AC210003E551F /* Frameworks */,
+				ABA78F081A9AC210003E551F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ADB File Browser OSX";
+			productName = "ADB File Browser OSX";
+			productReference = ABA78F0A1A9AC210003E551F /* ADB File Browser OSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ABA78F191A9AC210003E551F /* ADB File Browser OSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABA78F271A9AC210003E551F /* Build configuration list for PBXNativeTarget "ADB File Browser OSXTests" */;
+			buildPhases = (
+				ABA78F161A9AC210003E551F /* Sources */,
+				ABA78F171A9AC210003E551F /* Frameworks */,
+				ABA78F181A9AC210003E551F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABA78F1C1A9AC210003E551F /* PBXTargetDependency */,
+			);
+			name = "ADB File Browser OSXTests";
+			productName = "ADB File Browser OSXTests";
+			productReference = ABA78F1A1A9AC210003E551F /* ADB File Browser OSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ABA78F021A9AC210003E551F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Jonathan Warner";
+				TargetAttributes = {
+					ABA78F091A9AC210003E551F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					ABA78F191A9AC210003E551F = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = ABA78F091A9AC210003E551F;
+					};
+				};
+			};
+			buildConfigurationList = ABA78F051A9AC210003E551F /* Build configuration list for PBXProject "ADB File Browser OSX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ABA78F011A9AC210003E551F;
+			productRefGroup = ABA78F0B1A9AC210003E551F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ABA78F091A9AC210003E551F /* ADB File Browser OSX */,
+				ABA78F191A9AC210003E551F /* ADB File Browser OSXTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ABA78F081A9AC210003E551F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA78F121A9AC210003E551F /* Images.xcassets in Resources */,
+				ABA78F151A9AC210003E551F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABA78F181A9AC210003E551F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ABA78F061A9AC210003E551F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA78F101A9AC210003E551F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABA78F161A9AC210003E551F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABA78F211A9AC210003E551F /* ADB_File_Browser_OSXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ABA78F1C1A9AC210003E551F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABA78F091A9AC210003E551F /* ADB File Browser OSX */;
+			targetProxy = ABA78F1B1A9AC210003E551F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ABA78F131A9AC210003E551F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ABA78F141A9AC210003E551F /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ABA78F221A9AC210003E551F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ABA78F231A9AC210003E551F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		ABA78F251A9AC210003E551F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "ADB File Browser OSX/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ABA78F261A9AC210003E551F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "ADB File Browser OSX/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ABA78F281A9AC210003E551F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ADB File Browser OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ADB File Browser OSX.app/Contents/MacOS/ADB File Browser OSX";
+			};
+			name = Debug;
+		};
+		ABA78F291A9AC210003E551F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ADB File Browser OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ADB File Browser OSX.app/Contents/MacOS/ADB File Browser OSX";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ABA78F051A9AC210003E551F /* Build configuration list for PBXProject "ADB File Browser OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABA78F221A9AC210003E551F /* Debug */,
+				ABA78F231A9AC210003E551F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABA78F241A9AC210003E551F /* Build configuration list for PBXNativeTarget "ADB File Browser OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABA78F251A9AC210003E551F /* Debug */,
+				ABA78F261A9AC210003E551F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ABA78F271A9AC210003E551F /* Build configuration list for PBXNativeTarget "ADB File Browser OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABA78F281A9AC210003E551F /* Debug */,
+				ABA78F291A9AC210003E551F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ABA78F021A9AC210003E551F /* Project object */;
+}
