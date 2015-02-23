@@ -9,17 +9,24 @@
 import Cocoa
 import WebKit
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, WKScriptMessageHandler {
     var webView: WKWebView?
     
     override func loadView() {
-        self.webView = WKWebView()
+        var contentController = WKUserContentController();
+        contentController.addScriptMessageHandler(
+            self,
+            name: "callbackHandler"
+        )
+
+        var config = WKWebViewConfiguration()
+        config.userContentController = contentController
+        self.webView = WKWebView(frame: self.view.frame, configuration: config)
         
         //If you want to implement the delegate
         //self.webView!.navigationDelegate = self
         
         self.view = self.webView!
-        
     }
     
     override func viewDidLoad() {
@@ -28,7 +35,16 @@ class ViewController: NSViewController {
         var url = NSURL(string: "http://www.google.com")
         var request = NSURLRequest(URL: url!)
         webView?.loadRequest(request)
+        //webView?.loadHTMLString("<script>webkit.messageHandlers.callbackHandler.postMessage('Send from JavaScript');</script>", baseURL: url)
         // Do any additional setup after loading the view.
+        
+    }
+    
+    
+    func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
+        if(message.name == "callbackHandler") {
+            println("JavaScript is sending a message \(message.body)")
+        }
     }
     
     override var representedObject: AnyObject? {
