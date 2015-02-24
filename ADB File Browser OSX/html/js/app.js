@@ -5,7 +5,10 @@ window.onload = function() {
   React.render(
     <div>
       <FileTree filekey="local" />
-      <div>right arrow</div>
+      <div className="toolbar">
+        <div className="icon">&gt;</div>
+        <div className="icon">&lt;</div>
+      </div>
       <FileTree filekey="remote" />
     </div>,
     document.getElementById('frame')

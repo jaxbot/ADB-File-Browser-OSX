@@ -1,12 +1,5 @@
-/*
 var AppDispatcher = require("../dispatchers/AppDispatcher");
 var Constants = require("../constants/Constants");
-
-var _pins = [];
-var currentPin = null;
-var showModals = {
-  newPost: false
-};
 
 var Store = module.exports = (function() {
   var changeCallbacks = [];
@@ -23,13 +16,8 @@ var Store = module.exports = (function() {
     removeChangeListener: function(callback) {
       changeCallbacks.splice(changeCallbacks.indexOf(callback), 1);
     },
-    getPinState: function(id) {
-      console.log(id);
-      console.log(_pins);
-      for (var i = 0; i < _pins.length; i++) {
-        if (_pins[i].id == id) return _pins[i];
-      }
-      return null;
+    getFileTreeState: function(filekey) {
+      return states[filekey] || {};
     },
     getAllPins: function() {
       return _pins;
@@ -51,32 +39,15 @@ var Store = module.exports = (function() {
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
   var text;
-  var pin = Store.getPinState(action.pinId);
+  var state = states[action.filekey];
+
+  if (!state) {
+    state = (states[action.filekey] = {});
+  }
 
   switch(action.actionType) {
-    case Constants.PIN_POST:
-      pin.pinned = true;
-      Store.emitChange();
-      break;
-    case Constants.UNPIN_POST:
-      pin.pinned = false;
-      Store.emitChange();
-      break;
-    case Constants.SHOW_POST:
-      currentPin = Store.getPinState(action.pinId);
-      showModals.post = true;
-      Store.emitChange();
-      break;
-    case Constants.SHOW_NEW_POST_DIALOG:
-      showModals.newPost = true;
-      Store.emitChange();
-      break;
-    case Constants.HIDE_MODAL:
-      showModals = {};
-      Store.emitChange();
-      break;
-    case Constants.NEW_POST:
-      Store.newPost(action.post);
+    case Constants.SELECT_FILE:
+      state.selectedItem = action.file.id;
       Store.emitChange();
       break;
     default:
@@ -84,10 +55,15 @@ AppDispatcher.register(function(action) {
   }
 });
 
-*/
-
 var files = {
   "local": [
+    { "name": "butts" },
+    { "name": "butts" },
+    { "name": "butts" },
+    { "name": "butts" },
+    { "name": "butts" },
+    { "name": "butts" },
+    { "name": "butts" },
     { "name": "butts" },
     { "name": "butts.jpg"}
   ],
@@ -99,6 +75,14 @@ var files = {
     { "name": "Music", directory: true},
     { "name": "Chicken.txt"},
   ]
+};
+for (var i = 0; i < files["local"].length; i++) {
+  files["local"][i].id = i;
+}
+for (var i = 0; i < files["remote"].length; i++) {
+  files["remote"][i].id = i;
+}
+var states = {
 };
 module.exports.getFiles = function(key) {
   return files[key];

@@ -14,17 +14,20 @@ module.exports = React.createClass({
     Store.removeChangeListener(this._onChange);
   },
   _onChange: function() {
-    this.setState(Store.getPinState(this.props.pin.id));
+    this.setState(Store.getFileTreeState(this.props.filekey));
   },
   render: function() {
-    var files = Store.getFiles(this.props.filekey);
+    var state = this.state;
+    var filekey = this.props.filekey;
+    var files = Store.getFiles(filekey);
     var fileNodes = files.map(function (file) {
+      var selected = (file.id == state.selectedItem);
       return (
-        <File file={file} />
+        <File file={file} selected={selected} filekey={filekey} />
       );
     });
     return (
-      <div>
+      <div className="filetree">
         {fileNodes}
       </div>
     );

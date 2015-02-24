@@ -1,20 +1,16 @@
 var Store = require("../stores/Store");
+var FileActions = require("../actions/FileActions");
 
 module.exports = React.createClass({
-  componentDidMount: function() {
-    Store.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function() {
-    Store.removeChangeListener(this._onChange);
-  },
-  _onChange: function() {
-    this.setState(Store.getPinState(this.props.pin.id));
+  _select: function() {
+    FileActions.selectFile(this.props.filekey, this.props.file);
   },
   render: function() {
     var file = this.props.file;
+    var classes = this.props.selected ? "selected" : "";
     return (
-      <div>
-        name: {file.name}
+      <div className={classes} onClick={this._select}>
+        {file.name}
       </div>
     );
   }
