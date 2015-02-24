@@ -1,0 +1,16 @@
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+<script src="public/app.js"></script>
+</head>
+<div id="frame"></div>
+<script>
+
+function foo(data) {
+	document.write(data);
+	document.write("<a href='https://github.com/jaxbot/browserlink.vim/archive/master.zip'>download</a>");
+}
+
+//webkit.messageHandlers.callbackHandler.postMessage({ command: '/Users/jonathan/android/platform-tools/adb', arguments: "shell ls -la /sdcard/".split(" "), callbackFunction: "foo"});
+webkit.messageHandlers.callbackHandler.postMessage({ command: '/bin/bash', arguments: ["-c", "ls -la ~"], callbackFunction: "foo"});
+
+</script>

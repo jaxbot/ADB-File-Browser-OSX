@@ -1,0 +1,30 @@
+{
+  "name": "reacterest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "watchify -o app.js -v -d .",
+    "build": "NODE_ENV=production browserify . | uglifyjs -cm > public/app.min.js",
+    "test": "jest"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  },
+  "author": "Jonathan Warner",
+  "license": "Public Domain",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "envify": "^3.2.0",
+    "reactify": "^1.0.0",
+    "uglify-js": "^2.4.16",
+    "watchify": "^2.2.1"
+  }
+}
