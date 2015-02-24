@@ -8,9 +8,11 @@
 
 import Cocoa
 import WebKit
+import Foundation
 
 class ViewController: NSViewController, WKScriptMessageHandler {
     var webView: WKWebView?
+    var localBase = NSURL(string: "about:blank")
     
     override func loadView() {
         var contentController = WKUserContentController();
@@ -29,18 +31,48 @@ class ViewController: NSViewController, WKScriptMessageHandler {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var url = NSURL(string: "http://www.google.com")
+        var url = NSURL(string: "http://localhost:8080/android/ADB%20File%20Browser%20OSX/ADB%20File%20Browser%20OSX/html/")
         var request = NSURLRequest(URL: url!)
-        //webView?.loadRequest(request)
-        webView?.loadHTMLString("<script>webkit.messageHandlers.callbackHandler.postMessage('Send from JavaScript');</script>", baseURL: url)
+        webView?.loadRequest(request)
+        //webView?.loadHTMLString("<script>webkit.messageHandlers.callbackHandler.postMessage({ command: '/bin/echo', arguments: ['hi']});</script>", baseURL: url)
         // Do any additional setup after loading the view.
         
     }
     
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
         if(message.name == "callbackHandler") {
-            println("JavaScript is sending a message \(message.body)")
+            var data = message.body as NSDictionary
+            
+            var string = getStringFromCommand(data["command"] as String, arguments: data["arguments"] as [String])
+            string = (string.stringByReplacingOccurrencesOfString("\n", withString: "\\n", options: nil, range: nil))
+            string = (string.stringByReplacingOccurrencesOfString("\r", withString: "\\r", options: nil, range: nil))
+            println(string)
+            var callbackString = (data["callbackFunction"] as String) + "(\"" + string + "\")"
+            webView?.evaluateJavaScript(callbackString, completionHandler: nil)
         }
+    }
+    
+    func adbDir() {
+        var string = getStringFromCommand("/Users/jonathan/android/platform-tools/adb", arguments: ["shell", "ls", "-la", "/sdcard/"])
+        println(string)
+        webView?.loadHTMLString(string, baseURL: localBase)
+        webView?.evaluateJavaScript("document.write(\"" + string + "\");", completionHandler: nil)
+        
+    }
+    
+    func getStringFromCommand(command: String, arguments: [String]) -> String {
+        let task = NSTask()
+        task.launchPath = command
+        task.arguments = arguments
+        
+        let pipe = NSPipe()
+        task.standardOutput = pipe
+        task.launch()
+        
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding)!
+        
+        return output
     }
     
     override var representedObject: AnyObject? {
