@@ -51,10 +51,12 @@ AppDispatcher.register(function(action) {
       Store.emitChange();
       break;
     case Constants.UPLOAD_FILE:
+      uploadFile();
       console.log("uploading " + states["local"].selectedItem + " to " + states["remote"].currentDirectory);
       break;
     case Constants.DOWNLOAD_FILE:
       console.log("downloading " + states["remote"].selectedItem + " to " + states["local"].currentDirectory);
+      downloadFile();
       break;
     case Constants.CHANGE_DIR:
       state.currentDirectory += "/" + action.file.name;
@@ -135,7 +137,7 @@ for (var i = 0; i < filesList["remote"].length; i++) {
 }
 var states = {
   "local": {
-    currentDirectory: "~/"
+    currentDirectory: "~"
   },
   "remote": {
     currentDirectory: "/sdcard/"
@@ -145,3 +147,32 @@ module.exports.getFiles = function(key) {
   return filesList[key];
 };
 
+function getSelectedFile(filekey) {
+  var selectedFile = null;
+  for (var i = 0; i < filesList[filekey].length; i++) {
+    if (filesList[filekey][i].id == states[filekey].selectedItem) {
+      selectedFile = filesList[filekey][i];
+      break;
+    }
+  }
+
+  return selectedFile;
+}
+
+function downloadFile() {
+  var selectedFile = getSelectedFile("remote");
+
+  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
+    updateDirectory(states["local"], "local");
+    Store.emitChange();
+  });
+}
+
+function uploadFile() {
+  var selectedFile = getSelectedFile("local");
+
+  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
+    updateDirectory(states["remote"], "remote");
+    Store.emitChange();
+  });
+}
