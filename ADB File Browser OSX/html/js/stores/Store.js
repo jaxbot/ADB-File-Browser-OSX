@@ -50,10 +50,24 @@ AppDispatcher.register(function(action) {
       state.selectedItem = action.file.id;
       Store.emitChange();
       break;
+    case Constants.UPLOAD_FILE:
+      console.log("uploading " + states["local"].selectedItem + " to " + states["remote"].currentDirectory);
+      break;
+    case Constants.DOWNLOAD_FILE:
+      console.log("downloading " + states["remote"].selectedItem + " to " + states["local"].currentDirectory);
+      break;
+    case Constants.CHANGE_DIR:
+      state.currentDirectory += "/" + action.file.name;
+      console.log(state.currentDirectory);
+      updateDirectory(state);
+      break;
     default:
       // no op
   }
 });
+
+function updateDirectory(state) {
+}
 
 var files = {
   "local": [
@@ -83,6 +97,12 @@ for (var i = 0; i < files["remote"].length; i++) {
   files["remote"][i].id = i;
 }
 var states = {
+  "local": {
+    currentDirectory: "~/"
+  },
+  "remote": {
+    currentDirectory: "/sdcard/"
+  }
 };
 module.exports.getFiles = function(key) {
   return files[key];
