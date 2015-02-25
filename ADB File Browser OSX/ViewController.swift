@@ -47,7 +47,7 @@ class ViewController: NSViewController, WKScriptMessageHandler {
             string = (string.stringByReplacingOccurrencesOfString("\n", withString: "\\n", options: nil, range: nil))
             string = (string.stringByReplacingOccurrencesOfString("\r", withString: "\\r", options: nil, range: nil))
             println(string)
-            var callbackString = (data["callbackFunction"] as String) + "(\"" + string + "\")"
+            var callbackString = "window.callbacksFromOS[\"" + (data["callbackFunction"] as String) + "\"](\"" + string + "\")"
             webView?.evaluateJavaScript(callbackString, completionHandler: nil)
         }
     }
