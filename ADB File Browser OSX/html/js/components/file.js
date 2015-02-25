@@ -11,10 +11,12 @@ module.exports = React.createClass({
   },
   render: function() {
     var file = this.props.file;
-    var classes = this.props.selected ? "selected" : "";
+    var classes = "file " + (this.props.selected ? "selected" : "");
+    var iconClass = "icon " + (file.directory ? "icon-folder-open" : "icon-file-empty");
     return (
       <div className={classes} onClick={this._clicked}>
-        {file.name}
+        <span className={iconClass} />
+        <span className="file-title">{file.name}</span>
       </div>
     );
   }

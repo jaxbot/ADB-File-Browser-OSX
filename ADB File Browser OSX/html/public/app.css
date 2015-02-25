@@ -1,0 +1,42 @@
+.selected {
+  background: #bce3f3;
+}
+
+.file {
+  cursor: pointer;
+  margin: 2px 0;
+  padding: 5px;
+}
+
+.file:hover {
+  background: #cae6f1;
+}
+
+.file .icon-folder-open {
+  color: #75d2f8;
+}
+
+.file .file-title {
+  margin-left: 5px;
+}
+
+.toolbar {
+  display: inline-block;
+  width: 50px;
+  padding: 5px;
+  vertical-align: top;
+  text-align: center;
+}
+
+.toolbar .icon {
+  margin: 30px 5px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.filetree {
+  display: inline-block;
+  width: calc(50% - 60px);
+  height: calc(100% - 20px);
+  overflow: auto;
+}
