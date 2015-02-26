@@ -14,8 +14,8 @@ module.exports = React.createClass({
     var classes = this.props.selected ? "selected" : "";
     return (
       <div className="toolbar">
-        <div className="icon icon-arrow-right" onClick={this._upload}></div>
-        <div className="icon icon-arrow-left" onClick={this._download}></div>
+        <div className="icon icon-arrow-right2" onClick={this._upload}></div>
+        <div className="icon icon-arrow-left2" onClick={this._download}></div>
       </div>
     );
   }

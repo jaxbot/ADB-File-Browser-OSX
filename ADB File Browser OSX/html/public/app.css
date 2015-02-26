@@ -1,11 +1,18 @@
+body {
+  font-family: 'Helvetica neue';
+  font-weight: 300;
+  background: #f5f7f9;
+}
+
 .selected {
   background: #bce3f3;
 }
 
 .file {
   cursor: pointer;
-  margin: 2px 0;
+  margin-bottom: 4px;
   padding: 5px;
+  border-bottom: solid 1px #eee;
 }
 
 .file:hover {
@@ -26,17 +33,34 @@
   padding: 5px;
   vertical-align: top;
   text-align: center;
+  top: 0;
 }
 
 .toolbar .icon {
-  margin: 30px 5px;
+  margin: 34px 0;
+  padding: 5px;
   font-size: 30px;
   cursor: pointer;
+  border: solid 1px #aaa;
+  background: #eee;
 }
 
-.filetree {
+.filelist {
+  background: #fff;
   display: inline-block;
-  width: calc(50% - 60px);
-  height: calc(100% - 20px);
+  height: calc(100% - 40px);
+  width: 100%;
   overflow: auto;
+  border: solid 1px #aaa;
+}
+
+.icon-large {
+  font-size: 34px;
+  margin-bottom: 5px;
+}
+
+.filepane {
+  vertical-align: top;
+  display: inline-block;
+  width: calc(50% - 32px);
 }

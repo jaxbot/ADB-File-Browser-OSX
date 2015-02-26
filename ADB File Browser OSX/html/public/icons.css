@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?-x7f2w');
-	src:url('fonts/icomoon.eot?#iefix-x7f2w') format('embedded-opentype'),
-		url('fonts/icomoon.woff?-x7f2w') format('woff'),
-		url('fonts/icomoon.ttf?-x7f2w') format('truetype'),
-		url('fonts/icomoon.svg?-x7f2w#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?z5ztxg');
+	src:url('fonts/icomoon.eot?#iefixz5ztxg') format('embedded-opentype'),
+		url('fonts/icomoon.woff?z5ztxg') format('woff'),
+		url('fonts/icomoon.ttf?z5ztxg') format('truetype'),
+		url('fonts/icomoon.svg?z5ztxg#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -31,11 +31,27 @@
 	content: "\e930";
 }
 
-.icon-arrow-right:before {
-	content: "\ea34";
+.icon-display:before {
+	content: "\e956";
 }
 
-.icon-arrow-left:before {
-	content: "\ea38";
+.icon-arrow-right2:before {
+	content: "\ea3c";
+}
+
+.icon-arrow-left2:before {
+	content: "\ea40";
+}
+
+.icon-twitter3:before {
+	content: "\ea93";
+}
+
+.icon-github:before {
+	content: "\eab1";
+}
+
+.icon-android:before {
+	content: "\eac1";
 }
 

@@ -129,6 +129,9 @@ var filesList = {
     { "name": "Chicken.txt"},
   ]
 };
+for (var i = 0; i < 400; i++) {
+  filesList["local"].push({ "name": "butts.jpg"});
+}
 for (var i = 0; i < filesList["local"].length; i++) {
   filesList["local"][i].id = i;
 }

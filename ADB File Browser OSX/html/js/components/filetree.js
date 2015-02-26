@@ -19,6 +19,7 @@ module.exports = React.createClass({
   render: function() {
     var state = this.state;
     var filekey = this.props.filekey;
+    var iconName = "icon-large icon-" + this.props.icon;
     var files = Store.getFiles(filekey);
     var fileNodes = files.map(function (file) {
       var selected = (file.id == state.selectedItem);
@@ -27,8 +28,11 @@ module.exports = React.createClass({
       );
     });
     return (
-      <div className="filetree">
-        {fileNodes}
+      <div className="filepane">
+        <div className={iconName}></div>
+        <div className="filelist">
+          {fileNodes}
+        </div>
       </div>
     );
   }

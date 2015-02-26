@@ -5,9 +5,9 @@ var Toolbar = require("./components/Toolbar");
 window.onload = function() {
   React.render(
     <div>
-      <FileTree filekey="local" />
+      <FileTree filekey="local" icon="display" />
       <Toolbar />
-      <FileTree filekey="remote" />
+      <FileTree filekey="remote" icon="android" />
     </div>,
     document.getElementById('frame')
   );
