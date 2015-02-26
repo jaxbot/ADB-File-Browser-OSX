@@ -2,6 +2,10 @@ body {
   font-family: 'Helvetica neue';
   font-weight: 300;
   background: #f5f7f9;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .selected {
