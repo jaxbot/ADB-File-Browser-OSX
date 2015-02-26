@@ -61,14 +61,16 @@ AppDispatcher.register(function(action) {
     case Constants.CHANGE_DIR:
       state.currentDirectory += "/" + action.file.name;
       console.log(state.currentDirectory);
-      updateDirectory(state, action.filekey);
+      updateDirectory(action.filekey);
       break;
     default:
       // no op
   }
 });
 
-function updateDirectory(state, filekey) {
+function updateDirectory(filekey) {
+  var state = states[filekey];
+
   var command = "/bin/bash";
   var args = ["-c", (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory];
   executeSystemCommand(command, args, function(data) {
@@ -109,35 +111,11 @@ function executeSystemCommand(command, arguments, callback) {
 
 var filesList = {
   "local": [
-    { "name": "Desktop", directory: true},
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts" },
-    { "name": "butts.jpg"}
   ],
   "remote": [
-    { "name": "..", directory: true },
-    { "name": ".", directory: true},
-    { "name": "DCIM", directory: true},
-    { "name": "Desktop", directory: true},
-    { "name": "Music", directory: true},
-    { "name": "Chicken.txt"},
   ]
 };
-for (var i = 0; i < 400; i++) {
-  filesList["local"].push({ "name": "butts.jpg"});
-}
-for (var i = 0; i < filesList["local"].length; i++) {
-  filesList["local"][i].id = i;
-}
-for (var i = 0; i < filesList["remote"].length; i++) {
-  filesList["remote"][i].id = i;
-}
+
 var states = {
   "local": {
     currentDirectory: "~"
@@ -146,6 +124,10 @@ var states = {
     currentDirectory: "/sdcard/"
   }
 };
+
+updateDirectory("local");
+updateDirectory("remote");
+
 module.exports.getFiles = function(key) {
   return filesList[key];
 };
@@ -166,7 +148,7 @@ function downloadFile() {
   var selectedFile = getSelectedFile("remote");
 
   executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
-    updateDirectory(states["local"], "local");
+    updateDirectory("local");
     Store.emitChange();
   });
 }
@@ -175,7 +157,7 @@ function uploadFile() {
   var selectedFile = getSelectedFile("local");
 
   executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
-    updateDirectory(states["remote"], "remote");
+    updateDirectory("remote");
     Store.emitChange();
   });
 }
