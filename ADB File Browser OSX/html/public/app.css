@@ -1,4 +1,4 @@
-body {
+html, body {
   font-family: 'Helvetica neue';
   font-weight: 300;
   background: #f5f7f9;
@@ -6,6 +6,7 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+  height: calc(100% - 20px);
 }
 
 .selected {
@@ -51,11 +52,15 @@ body {
 
 .filelist {
   background: #fff;
-  display: inline-block;
-  height: calc(100% - 40px);
+  display: block;
   width: 100%;
-  overflow: auto;
   border: solid 1px #aaa;
+  height: 100%;
+  overflow: auto;
+}
+
+#frame, .wrapper {
+  height: 100%;
 }
 
 .icon-large {
@@ -67,4 +72,5 @@ body {
   vertical-align: top;
   display: inline-block;
   width: calc(50% - 32px);
+  height: calc(100% - 30px);
 }
