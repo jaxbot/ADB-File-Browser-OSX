@@ -52,14 +52,6 @@ class ViewController: NSViewController, WKScriptMessageHandler {
         }
     }
     
-    func adbDir() {
-        var string = getStringFromCommand("/Users/jonathan/android/platform-tools/adb", arguments: ["shell", "ls", "-la", "/sdcard/"])
-        println(string)
-        webView?.loadHTMLString(string, baseURL: localBase)
-        webView?.evaluateJavaScript("document.write(\"" + string + "\");", completionHandler: nil)
-        
-    }
-    
     func getStringFromCommand(command: String, arguments: [String]) -> String {
         let task = NSTask()
         task.launchPath = command

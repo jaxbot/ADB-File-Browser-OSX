@@ -1,5 +1,24 @@
 var AppDispatcher = require("../dispatchers/AppDispatcher");
 var Constants = require("../constants/Constants");
+var SwiftLink = require("../helpers/SwiftLink");
+var ADB = "/Users/jonathan/android/platform-tools/adb"
+
+var filesList = {
+  "local": [
+  ],
+  "remote": [
+  ]
+};
+
+var states = {
+  "local": {
+    currentDirectory: "~"
+  },
+  "remote": {
+    currentDirectory: "/sdcard/"
+  }
+};
+
 
 var Store = module.exports = (function() {
   var changeCallbacks = [];
@@ -18,19 +37,6 @@ var Store = module.exports = (function() {
     },
     getFileTreeState: function(filekey) {
       return states[filekey] || {};
-    },
-    getAllPins: function() {
-      return _pins;
-    },
-    getPinListState: function() {
-      return { currentPin: currentPin, show: showModals };
-    },
-    newPost: function(post) {
-      post.id = Math.random();
-      _pins.push(post);
-    },
-    setPins: function(data) {
-      _pins = data;
     }
   };
 })();
@@ -52,15 +58,12 @@ AppDispatcher.register(function(action) {
       break;
     case Constants.UPLOAD_FILE:
       uploadFile();
-      console.log("uploading " + states["local"].selectedItem + " to " + states["remote"].currentDirectory);
       break;
     case Constants.DOWNLOAD_FILE:
-      console.log("downloading " + states["remote"].selectedItem + " to " + states["local"].currentDirectory);
       downloadFile();
       break;
     case Constants.CHANGE_DIR:
       state.currentDirectory += "/" + action.file.name;
-      console.log(state.currentDirectory);
       updateDirectory(action.filekey);
       break;
     default:
@@ -68,7 +71,7 @@ AppDispatcher.register(function(action) {
   }
 });
 
-function updateDirectory(filekey) {
+exports.updateDirectory = function(filekey) {
   var state = states[filekey];
 
   var command = "/bin/bash";
@@ -101,33 +104,6 @@ function updateDirectory(filekey) {
   });
 }
 
-window.callbacksFromOS = {};
-function executeSystemCommand(command, arguments, callback) {
-  var cbName = Math.random().toString(36);
-  window.callbacksFromOS[cbName] = callback;
-  console.log(window.callbacksFromOS);
-  webkit.messageHandlers.callbackHandler.postMessage({ command: command, arguments: arguments, callbackFunction: cbName});
-}
-
-var filesList = {
-  "local": [
-  ],
-  "remote": [
-  ]
-};
-
-var states = {
-  "local": {
-    currentDirectory: "~"
-  },
-  "remote": {
-    currentDirectory: "/sdcard/"
-  }
-};
-
-updateDirectory("local");
-updateDirectory("remote");
-
 module.exports.getFiles = function(key) {
   return filesList[key];
 };
@@ -147,7 +123,7 @@ function getSelectedFile(filekey) {
 function downloadFile() {
   var selectedFile = getSelectedFile("remote");
 
-  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
+  executeSystemCommand(ADB + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
     updateDirectory("local");
     Store.emitChange();
   });
@@ -156,8 +132,9 @@ function downloadFile() {
 function uploadFile() {
   var selectedFile = getSelectedFile("local");
 
-  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
+  executeSystemCommand("/bin/bash", ["-c", ADB + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
     updateDirectory("remote");
     Store.emitChange();
   });
 }
+
