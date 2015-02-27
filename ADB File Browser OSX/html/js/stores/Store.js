@@ -1,6 +1,7 @@
 var AppDispatcher = require("../dispatchers/AppDispatcher");
 var Constants = require("../constants/Constants");
 var SwiftLink = require("../helpers/SwiftLink");
+var Mockdata = require("../helpers/Mockdata");
 var ADB = "/Users/jonathan/android/platform-tools/adb"
 
 var filesList = {
@@ -37,7 +38,8 @@ var Store = module.exports = (function() {
     },
     getFileTreeState: function(filekey) {
       return states[filekey] || {};
-    }
+    },
+    updateDirectory: updateDirectory
   };
 })();
 
@@ -71,12 +73,16 @@ AppDispatcher.register(function(action) {
   }
 });
 
-exports.updateDirectory = function(filekey) {
+function updateDirectory(filekey) {
   var state = states[filekey];
 
-  var command = "/bin/bash";
-  var args = ["-c", (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory];
-  executeSystemCommand(command, args, function(data) {
+  if (!window.webkit) {
+    filesList[filekey] = Mockdata();
+    return;
+  }
+
+  var cmd = (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory;
+  SwiftLink.executeSystemCommand(cmd, function(data) {
     var files = [];
     var lines = data.split("\n");
     for (var i = 0; i < lines.length; i++) {
@@ -123,7 +129,7 @@ function getSelectedFile(filekey) {
 function downloadFile() {
   var selectedFile = getSelectedFile("remote");
 
-  executeSystemCommand(ADB + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
+  SwiftLink.executeSystemCommand(ADB + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/", function(data) {
     updateDirectory("local");
     Store.emitChange();
   });
@@ -132,7 +138,7 @@ function downloadFile() {
 function uploadFile() {
   var selectedFile = getSelectedFile("local");
 
-  executeSystemCommand("/bin/bash", ["-c", ADB + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
+  SwiftLink.executeSystemCommand(ADB + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/", function(data) {
     updateDirectory("remote");
     Store.emitChange();
   });

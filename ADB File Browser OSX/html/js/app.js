@@ -7,7 +7,7 @@ Store.updateDirectory("remote");
 
 window.onload = function() {
   React.render(
-    <div>
+    <div className="wrapper">
       <FileTree filekey="local" icon="display" />
       <Toolbar />
       <FileTree filekey="remote" icon="android" />
