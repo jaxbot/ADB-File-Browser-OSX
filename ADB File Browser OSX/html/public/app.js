@@ -194,7 +194,6 @@ var AppDispatcher = require("../dispatchers/AppDispatcher");
 var Constants = require("../constants/Constants");
 var SwiftLink = require("../helpers/SwiftLink");
 var Mockdata = require("../helpers/Mockdata");
-var ADB = "/Users/jonathan/android/platform-tools/adb"
 
 var filesList = {
   "local": [
@@ -273,7 +272,9 @@ function updateDirectory(filekey) {
     return;
   }
 
-  var cmd = (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory;
+  SwiftLink.executeSystemCommand("which adb", function(data) {});
+
+  var cmd = (filekey == "remote" ? ADB() + " shell " : "") + "ls -la " + state.currentDirectory;
   SwiftLink.executeSystemCommand(cmd, function(data) {
     var files = [];
     var lines = data.split("\n");
@@ -321,7 +322,7 @@ function getSelectedFile(filekey) {
 function downloadFile() {
   var selectedFile = getSelectedFile("remote");
 
-  SwiftLink.executeSystemCommand(ADB + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/", function(data) {
+  SwiftLink.executeSystemCommand(ADB() + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/", function(data) {
     updateDirectory("local");
     Store.emitChange();
   });
@@ -330,12 +331,22 @@ function downloadFile() {
 function uploadFile() {
   var selectedFile = getSelectedFile("local");
 
-  SwiftLink.executeSystemCommand(ADB + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/", function(data) {
+  SwiftLink.executeSystemCommand(ADB() + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/", function(data) {
     updateDirectory("remote");
     Store.emitChange();
   });
 }
 
+function ADB() {
+  var cwd = window.cwd;
+  cwd = cwd.split("/");
+  cwd.pop();
+  cwd.pop();
+  cwd = cwd.join("/");
+  cwd += "/Resources";
+
+  return cwd.replace(/\s/g, "\\ ") + "/adb";
+}
 
 
 },{"../constants/Constants":5,"../dispatchers/AppDispatcher":6,"../helpers/Mockdata":7,"../helpers/SwiftLink":8}],10:[function(require,module,exports){

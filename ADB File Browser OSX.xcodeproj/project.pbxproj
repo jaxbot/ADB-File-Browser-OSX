@@ -10,6 +10,7 @@
 		AB2CB7CE1AA7F1620089178B /* public in Resources */ = {isa = PBXBuildFile; fileRef = AB2CB7CB1AA7F1620089178B /* public */; };
 		AB2CB7CF1AA7F1620089178B /* js in Resources */ = {isa = PBXBuildFile; fileRef = AB2CB7CC1AA7F1620089178B /* js */; };
 		AB2CB7D01AA7F1620089178B /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = AB2CB7CD1AA7F1620089178B /* index.html */; };
+		AB2CB7D21AA7F3350089178B /* adb in Resources */ = {isa = PBXBuildFile; fileRef = AB2CB7D11AA7F3340089178B /* adb */; };
 		ABA78F101A9AC210003E551F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA78F0F1A9AC210003E551F /* AppDelegate.swift */; };
 		ABA78F121A9AC210003E551F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABA78F111A9AC210003E551F /* Images.xcassets */; };
 		ABA78F151A9AC210003E551F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABA78F131A9AC210003E551F /* MainMenu.xib */; };
@@ -31,6 +32,7 @@
 		AB2CB7CB1AA7F1620089178B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; name = public; path = html/public; sourceTree = "<group>"; };
 		AB2CB7CC1AA7F1620089178B /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; name = js; path = html/js; sourceTree = "<group>"; };
 		AB2CB7CD1AA7F1620089178B /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = html/index.html; sourceTree = "<group>"; };
+		AB2CB7D11AA7F3340089178B /* adb */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = adb; path = bin/adb; sourceTree = "<group>"; };
 		ABA78F0A1A9AC210003E551F /* ADB File Browser OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ADB File Browser OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA78F0E1A9AC210003E551F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABA78F0F1A9AC210003E551F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				AB2CB7CB1AA7F1620089178B /* public */,
 				AB2CB7CC1AA7F1620089178B /* js */,
 				AB2CB7CD1AA7F1620089178B /* index.html */,
+				AB2CB7D11AA7F3340089178B /* adb */,
 				ABA78F0D1A9AC210003E551F /* Supporting Files */,
 				ABA78F2C1A9AC2B9003E551F /* ViewController.swift */,
 			);
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2CB7D21AA7F3350089178B /* adb in Resources */,
 				AB2CB7D01AA7F1620089178B /* index.html in Resources */,
 				AB2CB7CE1AA7F1620089178B /* public in Resources */,
 				ABA78F121A9AC210003E551F /* Images.xcassets in Resources */,

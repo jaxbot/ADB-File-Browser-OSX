@@ -34,6 +34,8 @@ class ViewController: NSViewController, WKScriptMessageHandler {
         var url = NSBundle.mainBundle().URLForResource("index", withExtension: "html");
         var request = NSURLRequest(URL: url!)
         webView?.loadRequest(request)
+        var cwdString = "window.cwd=\"" + (NSProcessInfo.processInfo().arguments[0] as String) + "\""
+        webView?.evaluateJavaScript(cwdString, completionHandler: nil)
     }
     
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
