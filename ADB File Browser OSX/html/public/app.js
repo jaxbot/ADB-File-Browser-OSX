@@ -75,7 +75,7 @@ module.exports = React.createClass({displayName: "exports",
 
 
 
-},{"../stores/Store":7,"./file":4}],3:[function(require,module,exports){
+},{"../stores/Store":9,"./file":4}],3:[function(require,module,exports){
 
 var Store = require("../stores/Store");
 var FileActions = require("../actions/FileActions");
@@ -102,7 +102,7 @@ module.exports = React.createClass({displayName: "exports",
 
 
 
-},{"../actions/FileActions":1,"../stores/Store":7}],4:[function(require,module,exports){
+},{"../actions/FileActions":1,"../stores/Store":9}],4:[function(require,module,exports){
 var Store = require("../stores/Store");
 var FileActions = require("../actions/FileActions");
 
@@ -130,7 +130,7 @@ module.exports = React.createClass({displayName: "exports",
 
 
 
-},{"../actions/FileActions":1,"../stores/Store":7}],5:[function(require,module,exports){
+},{"../actions/FileActions":1,"../stores/Store":9}],5:[function(require,module,exports){
 module.exports = {
   SELECT_FILE: 1,
   UPLOAD_FILE: 2,
@@ -146,9 +146,72 @@ module.exports = new Dispatcher();
 
 
 
-},{"flux":8}],7:[function(require,module,exports){
+},{"flux":10}],7:[function(require,module,exports){
+var names = ["summer.jpg", "notes.txt", "system32.dll", "images", "DCIM"];
+
+module.exports = function() {
+  var files = [{ name: "..", directory: true, id: 0}, { name: ".", directory: true, id: 1 }];
+
+  for (var i = 0; i < 100 + Math.random() * 100; i++) {
+    var name = names[Math.floor(names.length * Math.random())];
+    files.push({ name: name, directory: Math.random() > 0.5, id: i + 2 });
+  }
+
+  return files;
+};
+
+
+},{}],8:[function(require,module,exports){
+window.callbacksFromOS = {};
+
+var currentCallbackCounter = 0;
+
+exports.executeSystemCommand = function(cmd, callback) {
+  var cbName = (++currentCallbackCounter).toString(36);
+
+  // Store callback and wrap it in a self-cleanup block
+  window.callbacksFromOS[cbName] = function(data) {
+    callback(data);
+    window.callbacksFromOS[cbName] = null;
+  };
+
+  // Run through bash for better command parsing
+  var command = "/bin/bash";
+  var args = ["-c", cmd];
+
+  // Send message and callback name to the Swift bridge
+  webkit.messageHandlers.callbackHandler.postMessage({
+    command: command,
+    arguments: args,
+    callbackFunction: cbName
+  });
+};
+
+
+
+},{}],9:[function(require,module,exports){
 var AppDispatcher = require("../dispatchers/AppDispatcher");
 var Constants = require("../constants/Constants");
+var SwiftLink = require("../helpers/SwiftLink");
+var Mockdata = require("../helpers/Mockdata");
+var ADB = "/Users/jonathan/android/platform-tools/adb"
+
+var filesList = {
+  "local": [
+  ],
+  "remote": [
+  ]
+};
+
+var states = {
+  "local": {
+    currentDirectory: "~"
+  },
+  "remote": {
+    currentDirectory: "/sdcard/"
+  }
+};
+
 
 var Store = module.exports = (function() {
   var changeCallbacks = [];
@@ -168,19 +231,7 @@ var Store = module.exports = (function() {
     getFileTreeState: function(filekey) {
       return states[filekey] || {};
     },
-    getAllPins: function() {
-      return _pins;
-    },
-    getPinListState: function() {
-      return { currentPin: currentPin, show: showModals };
-    },
-    newPost: function(post) {
-      post.id = Math.random();
-      _pins.push(post);
-    },
-    setPins: function(data) {
-      _pins = data;
-    }
+    updateDirectory: updateDirectory
   };
 })();
 
@@ -201,15 +252,12 @@ AppDispatcher.register(function(action) {
       break;
     case Constants.UPLOAD_FILE:
       uploadFile();
-      console.log("uploading " + states["local"].selectedItem + " to " + states["remote"].currentDirectory);
       break;
     case Constants.DOWNLOAD_FILE:
-      console.log("downloading " + states["remote"].selectedItem + " to " + states["local"].currentDirectory);
       downloadFile();
       break;
     case Constants.CHANGE_DIR:
       state.currentDirectory += "/" + action.file.name;
-      console.log(state.currentDirectory);
       updateDirectory(action.filekey);
       break;
     default:
@@ -220,9 +268,13 @@ AppDispatcher.register(function(action) {
 function updateDirectory(filekey) {
   var state = states[filekey];
 
-  var command = "/bin/bash";
-  var args = ["-c", (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory];
-  executeSystemCommand(command, args, function(data) {
+  if (!window.webkit) {
+    filesList[filekey] = Mockdata();
+    return;
+  }
+
+  var cmd = (filekey == "remote" ? "/Users/jonathan/android/platform-tools/adb shell " : "") + "ls -la " + state.currentDirectory;
+  SwiftLink.executeSystemCommand(cmd, function(data) {
     var files = [];
     var lines = data.split("\n");
     for (var i = 0; i < lines.length; i++) {
@@ -250,33 +302,6 @@ function updateDirectory(filekey) {
   });
 }
 
-window.callbacksFromOS = {};
-function executeSystemCommand(command, arguments, callback) {
-  var cbName = Math.random().toString(36);
-  window.callbacksFromOS[cbName] = callback;
-  console.log(window.callbacksFromOS);
-  webkit.messageHandlers.callbackHandler.postMessage({ command: command, arguments: arguments, callbackFunction: cbName});
-}
-
-var filesList = {
-  "local": [
-  ],
-  "remote": [
-  ]
-};
-
-var states = {
-  "local": {
-    currentDirectory: "~"
-  },
-  "remote": {
-    currentDirectory: "/sdcard/"
-  }
-};
-
-updateDirectory("local");
-updateDirectory("remote");
-
 module.exports.getFiles = function(key) {
   return filesList[key];
 };
@@ -293,12 +318,10 @@ function getSelectedFile(filekey) {
   return selectedFile;
 }
 
-executeSystemCommand("/bin/bash", ["-c", "pwd"], function() {});
-
 function downloadFile() {
   var selectedFile = getSelectedFile("remote");
 
-  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/"], function(data) {
+  SwiftLink.executeSystemCommand(ADB + " pull \"" + states["remote"].currentDirectory + "/" + selectedFile.name + "\" " + states["local"].currentDirectory + "/", function(data) {
     updateDirectory("local");
     Store.emitChange();
   });
@@ -307,14 +330,15 @@ function downloadFile() {
 function uploadFile() {
   var selectedFile = getSelectedFile("local");
 
-  executeSystemCommand("/bin/bash", ["-c", "/Users/jonathan/android/platform-tools/adb push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/"], function(data) {
+  SwiftLink.executeSystemCommand(ADB + " push " + states["local"].currentDirectory + "/" + selectedFile.name + " " + states["remote"].currentDirectory + "/", function(data) {
     updateDirectory("remote");
     Store.emitChange();
   });
 }
 
 
-},{"../constants/Constants":5,"../dispatchers/AppDispatcher":6}],8:[function(require,module,exports){
+
+},{"../constants/Constants":5,"../dispatchers/AppDispatcher":6,"../helpers/Mockdata":7,"../helpers/SwiftLink":8}],10:[function(require,module,exports){
 /**
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
@@ -326,7 +350,7 @@ function uploadFile() {
 
 module.exports.Dispatcher = require('./lib/Dispatcher')
 
-},{"./lib/Dispatcher":9}],9:[function(require,module,exports){
+},{"./lib/Dispatcher":11}],11:[function(require,module,exports){
 /*
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
@@ -578,7 +602,7 @@ var _prefix = 'ID_';
 
 module.exports = Dispatcher;
 
-},{"./invariant":10}],10:[function(require,module,exports){
+},{"./invariant":12}],12:[function(require,module,exports){
 /**
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
@@ -633,14 +657,17 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Store = require("./stores/Store");
 var FileTree = require("./components/FileTree");
 var Toolbar = require("./components/Toolbar");
 
+Store.updateDirectory("local");
+Store.updateDirectory("remote");
+
 window.onload = function() {
   React.render(
-    React.createElement("div", null, 
+    React.createElement("div", {className: "wrapper"}, 
       React.createElement(FileTree, {filekey: "local", icon: "display"}), 
       React.createElement(Toolbar, null), 
       React.createElement(FileTree, {filekey: "remote", icon: "android"})
@@ -651,4 +678,4 @@ window.onload = function() {
 
 
 
-},{"./components/FileTree":2,"./components/Toolbar":3,"./stores/Store":7}]},{},[11]);
+},{"./components/FileTree":2,"./components/Toolbar":3,"./stores/Store":9}]},{},[13]);

@@ -31,12 +31,9 @@ class ViewController: NSViewController, WKScriptMessageHandler {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var url = NSURL(string: "http://localhost:8080/android/ADB%20File%20Browser%20OSX/ADB%20File%20Browser%20OSX/html/")
+        var url = NSBundle.mainBundle().URLForResource("index", withExtension: "html");
         var request = NSURLRequest(URL: url!)
         webView?.loadRequest(request)
-        //webView?.loadHTMLString("<script>webkit.messageHandlers.callbackHandler.postMessage({ command: '/bin/echo', arguments: ['hi']});</script>", baseURL: url)
-        // Do any additional setup after loading the view.
-        
     }
     
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
