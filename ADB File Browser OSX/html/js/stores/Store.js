@@ -84,6 +84,12 @@ function updateDirectory(filekey) {
 
   var cmd = (filekey == "remote" ? ADB() + " shell " : "") + "ls -la " + state.currentDirectory;
   SwiftLink.executeSystemCommand(cmd, function(data) {
+    if (data === '') {
+      state.noDevice = true;
+      Store.emitChange();
+      return;
+    }
+
     var files = [];
     var lines = data.split("\n");
     for (var i = 0; i < lines.length; i++) {
