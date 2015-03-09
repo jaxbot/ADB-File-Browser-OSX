@@ -105,6 +105,15 @@ function updateDirectory(filekey) {
 
       files.push(file);
     }
+
+    // Sort directories on top
+    var directoryCount = 0;
+    for (var i = 0; i < files.length; i++) {
+      if (files[i].directory) {
+        var file = files.splice(i, 1)[0];
+        files.splice(directoryCount++, 0, file);
+      }
+    }
     filesList[filekey] = files;
 
     Store.emitChange();
